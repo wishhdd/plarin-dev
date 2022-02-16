@@ -16,7 +16,6 @@ class HousesStore {
         })
     }
 
-
         async loadHouses(page = 1) {
             this.loading = true;
             const response =  await axios.get("https://www.anapioficeandfire.com/api/houses", {
@@ -26,25 +25,21 @@ class HousesStore {
                 },
             });
             runInAction(() => {
-                
                 this.lastPage = this.searchByParameterInURL(response.headers.link, "last");
-                this.loadedHouses =  response.data;
+                this.loadedHouses = response.data;
                 this.loading = false;
             })
         }
 
-        checkingSavedHouse(url:string, name:string ):void|boolean {
-            axios.get(url).then(response=>{
-                if (response.status != 200 && response.data.name != "House Algood"){
- 
-                    return true
+        async checkingSavedHouse(name:string ) {
+            let index:number = this.favoritesHouses.findIndex(fh=> name === fh.name)
+            const response =  await axios.get(this.favoritesHouses[index].url);
+            runInAction(() => {
+                if (response.status !== 200 || response.data.name !== name){
+                    this.favoritesHouses[index].check='not_ok'
                 }
-                return  true
             })
-            return true
-            
         }
-        
 
         searchByParameterInURL(responseLink:string, parameter:string){
             const splitLink = responseLink.split(",")
@@ -66,9 +61,9 @@ class HousesStore {
         }
 
         addFavorites (house:HouseType){
-                if(this.checkHouseFavorites(house)){
-                   let index:number = this.favoritesHouses.findIndex(fh=> house.name === fh.name)
-                   this.favoritesHouses.splice(index, 1);
+                if (this.checkHouseFavorites(house)){
+                    let index:number = this.favoritesHouses.findIndex(fh => house.name === fh.name)
+                    this.favoritesHouses.splice(index, 1);
                 }
                 else{
                     this.favoritesHouses.push(house)
@@ -80,7 +75,7 @@ class HousesStore {
         loadFavorites(){
         if (localStorage['GoTFavorites']) {
             this.favoritesHouses = JSON.parse(localStorage['GoTFavorites']);
-        }
+            }
         }
         
         saveFavorites(){
@@ -88,7 +83,6 @@ class HousesStore {
         }
 
         checkHouseFavorites(checkHouse:HouseType){
-
             let check = this.favoritesHouses.find(house => house.name === checkHouse.name)?.name
             if (typeof  check?.length  === 'undefined')
             {
@@ -96,10 +90,6 @@ class HousesStore {
             }
             return check?.length>0
         }
-
     }
-
-
-
 
 export default new HousesStore();

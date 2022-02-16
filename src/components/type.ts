@@ -15,4 +15,5 @@ export type HouseType = {
     ancestralWeapons:string[];
     cadetBranches:string[];
     swornMembers:string[];
+    check?: string
 }

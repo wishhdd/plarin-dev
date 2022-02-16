@@ -16,7 +16,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-
 const HeadPanel: React.FC = () => {
     let location = useLocation();
 

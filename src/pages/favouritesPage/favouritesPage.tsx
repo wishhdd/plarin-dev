@@ -20,7 +20,6 @@ const FavouritesPage:React.FC = () => {
                   <div key={house.name}>
                   <HouseCard house={house}></HouseCard>
                   </div>
-    
                 )
               }
                 )}

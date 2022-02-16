@@ -21,23 +21,21 @@ const HousesPage:React.FC = () => {
     {HousesStore.loading && <LinearProgress color="inherit"/>}
   <div className="housesPage">
       {HousesStore.loadedHouses && HousesStore.loadedHouses.map((house:HouseType) => {
-        
             return (
               <div key={house.name}>
               <HouseCard house={house}></HouseCard>
-              
               </div>
             )
           }
             )}
     </div>
-    <div className='pagination'>
+    {!HousesStore.loading && <div className='pagination'>
     <Pagination count={HousesStore.lastPage}
     page={HousesStore.page}
     onChange={handlerChangePage}
     variant="outlined"
     color="secondary" />
-    </div>
+    </div>}
     </>
   );
 }
