@@ -24,7 +24,7 @@ const HeadPanel: React.FC = () => {
 <AppBar position="static" color="inherit">
     <Toolbar>
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-        {(location.pathname === '/favourites') ? "Favorites Houses" : "Game of Thrones Houses"}
+        {(location.pathname === '/favourites') ? "Favorite Houses" : "Game of Thrones Houses"}
         </Typography>
         {(location.pathname === '/favourites') ?(
                             <Link to="/">
